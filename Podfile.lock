@@ -1,0 +1,23 @@
+PODS:
+  - Alamofire (3.4.1)
+  - MagicalRecord (2.3.2):
+    - MagicalRecord/Core (= 2.3.2)
+  - MagicalRecord/Core (2.3.2)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.4)
+  - MagicalRecord
+  - SDWebImage (~> 3.8)
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+COCOAPODS: 0.39.0

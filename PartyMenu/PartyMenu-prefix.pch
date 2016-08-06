@@ -1,0 +1,14 @@
+//
+//  PartyMenu-prefix.pch
+//  PartyMenu
+//
+//  Created by Михаил on 06.08.16.
+//  Copyright © 2016 empatika. All rights reserved.
+//
+
+#ifndef PartyMenu_prefix_pch
+#define PartyMenu_prefix_pch
+
+
+#endif /* PartyMenu_prefix_pch */
+
