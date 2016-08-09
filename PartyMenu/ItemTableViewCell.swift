@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+import MagicalRecord
 
 class ItemTableViewCell: UITableViewCell {
     
@@ -29,13 +31,16 @@ class ItemTableViewCell: UITableViewCell {
         title.text = item.title
         price.text = "\(item.price!) $"
         dishDescription.text = item.dishDescription
-        count.text = "0"
+        count.text = String(Int(item.count!))
         owner.text = ""
-        stepper.value = 0
+        stepper.value = Double(item.count!)
         stepper.addTarget(self, action: #selector(self.orderValueChanged), forControlEvents: .ValueChanged)
     }
     
     func orderValueChanged(sender: UIStepper) {
-        
+        count.text = String(Int(stepper.value))
+        self.item.count = self.stepper.value
+        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+        Basket.shared.orderChanged(forItem: item)
     }
 }

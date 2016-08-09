@@ -8,6 +8,18 @@
 
 import Foundation
 
-class OrderItem {
+class OrderItem{
+
+    var item: Item!
+    var count: Int!
     
+    init(item: Item, count: Int) {
+        self.item = item
+        self.count = count
+    }
+    
+    init(item: Item) {
+        self.item = item
+        self.count = item.count as! Int
+    }
 }

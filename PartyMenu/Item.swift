@@ -18,9 +18,23 @@ class Item: NSManagedObject {
         item.title = json["title"].stringValue
         item.dishDescription = json["description"].stringValue
         item.id = json["id"].stringValue
-        item.price = json["price"].double
-        item.imageUrl = json["pic"].string
+        item.price = json["price"].doubleValue
+        item.imageUrl = json["pic"].stringValue
+        item.count = 0
         
         return item
+    }
+    
+    func getOrderInfo() -> [String : String] {
+        var result = [String : String]()
+        result["itemId"] = id!
+        result["count"] = String(Int(count!))
+        result["owner"] = Constants.currentDeviceSection
+        
+        return result
+    }
+    
+    func getCount() -> Int {
+        return Int(count!)
     }
 }

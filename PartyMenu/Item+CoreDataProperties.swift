@@ -19,5 +19,5 @@ extension Item {
     @NSManaged var price: NSNumber?
     @NSManaged var imageUrl: String?
     @NSManaged var id: String?
-
+    @NSManaged var count: NSNumber?
 }

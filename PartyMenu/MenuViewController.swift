@@ -8,6 +8,7 @@
 
 import UIKit
 import MagicalRecord
+import SwiftyJSON
 
 class Sections {
     static let items = 0
@@ -23,17 +24,23 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let showAction = #selector(self.showConnections)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Подключение", style: .Plain, target: self, action: showAction)
+        
         if isRoot {
+            title = "Меню"
             initRoots()
         }
         
         tableView.rowHeight = 101
     }
     
+    
     func initRoots() {
         if Category.roots.isEmpty {
             DataManager.loadJson() {
                 self.categories = Category.roots
+                self.tableView.reloadData()
             }
         }
         else {
@@ -94,24 +101,24 @@ class MenuViewController: UITableViewController {
     override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return indexPath.section == Sections.categories
     }
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if indexPath.section != Sections.items {
-//            let category = categories[indexPath.row]
-//            let newVC = MenuViewController()
-    //            newVC.isRoot = false
-    //newVC.categories = category.getSubdirectories()
-   // newVC.items = category.getItems()
-//            showViewController(newVC, sender: self)
-//        }
-//    }
-
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let parentCategory = (sender as! CategoryTableViewCell).category
-        let vc = segue.destinationViewController as! MenuViewController
-        vc.items = parentCategory.getItems()
-        vc.categories = parentCategory.getSubdirectories()
-        vc.isRoot = false
+        if segue.identifier == "showMenu" {
+            if let parentCategory = (sender as! CategoryTableViewCell).category {
+                let vc = segue.destinationViewController as! MenuViewController
+                vc.items = parentCategory.getItemsArr()
+                vc.categories = parentCategory.getSubdirectoriesArr()
+                vc.isRoot = false
+                vc.title = parentCategory.title
+            }
+        }
+        if segue.identifier == "showSettings" {
+            print("show settings segue")
+        }
+    }
+    
+    func showConnections() {
+        performSegueWithIdentifier("showSettings", sender: self)
     }
 }
 

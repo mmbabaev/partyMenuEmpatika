@@ -13,11 +13,11 @@ import SwiftyJSON
 @objc(Category)
 class Category: NSManagedObject {
     
-    func getSubdirectories() -> [Category] {
+    func getSubdirectoriesArr() -> [Category] {
         return subCategories?.allObjects as! [Category]
     }
     
-    func getItems() -> [Item] {
+    func getItemsArr() -> [Item] {
         return items?.allObjects as! [Item]
     }
     
