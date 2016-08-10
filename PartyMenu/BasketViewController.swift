@@ -11,13 +11,21 @@ import UIKit
 
 class BasketViewController: UITableViewController, BasketDelegate {
     
-    let basket = Basket.shared
+    var basket: Basket!
     
     override func viewDidLoad() {
+        basket = Basket.shared
         basket.delegate = self
+        
+        let showAction = #selector(self.showSettings)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Подключение", style: .Plain, target: self, action: showAction)
         
         tableView.reloadData()
         tableView.rowHeight = 101
+    }
+    
+    func showSettings() {
+        performSegueWithIdentifier("showSettings", sender: self)
     }
     
     var sections: [String] {

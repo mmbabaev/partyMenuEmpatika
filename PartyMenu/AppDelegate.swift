@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         MagicalRecord.setupCoreDataStackWithAutoMigratingSqliteStoreNamed("Menu1")
         
+        ConnectionManager.shared
+        
         return true
     }
 

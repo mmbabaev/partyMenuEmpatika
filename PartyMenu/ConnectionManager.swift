@@ -44,8 +44,8 @@ class ConnectionManager: NSObject {
     }
     
     deinit {
-        advertiser.stopAdvertisingPeer()
-        browser.stopBrowsingForPeers()
+        //advertiser.stopAdvertisingPeer()
+        //browser.stopBrowsingForPeers()
     }
     
     var connectedDevices: [String] {

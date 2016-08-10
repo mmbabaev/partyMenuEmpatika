@@ -24,6 +24,8 @@ class Basket {
     
     init() {
         ConnectionManager.shared.delegate = self
+        
+        orders[Constants.currentDeviceSection] = OrderItem.itemsInBasket()
     }
     
     func receivedData(dictionary: [String : String]) {
@@ -44,6 +46,10 @@ class Basket {
             }
             else {
                 currentOrders[0].count = count
+                orders[owner] = ownerOrders.filter({
+                    order in
+                    return order.count != 0
+                })
             }
         }
         else {

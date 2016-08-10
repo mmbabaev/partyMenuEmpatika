@@ -22,4 +22,31 @@ class OrderItem{
         self.item = item
         self.count = item.count as! Int
     }
+    
+    static func itemsInBasket() -> [OrderItem] {
+        let itemsInBasketPredicate = NSPredicate(format: "count > 0")
+        let itemsInBasket = Item.MR_findAllWithPredicate(itemsInBasketPredicate) as! [Item]
+        let result = itemsInBasket.map({
+            item in OrderItem(item: item)
+        })
+        
+        return result
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

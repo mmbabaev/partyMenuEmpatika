@@ -32,6 +32,13 @@ class ItemTableViewCell: UITableViewCell {
         price.text = "\(item.price!) $"
         dishDescription.text = item.dishDescription
         count.text = String(Int(item.count!))
+        
+        // make count label circular and add border:
+        count.layer.cornerRadius = count.frame.size.height / 2
+        count.layer.masksToBounds = true
+        count.layer.borderColor = UIColor.blackColor().CGColor
+        count.layer.borderWidth = 3
+        
         owner.text = ""
         stepper.value = Double(item.count!)
         stepper.addTarget(self, action: #selector(self.orderValueChanged), forControlEvents: .ValueChanged)
