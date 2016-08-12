@@ -12,7 +12,7 @@ import MagicalRecord
 
 class ItemTableViewCell: UITableViewCell {
     
-    var item: Item!
+    var orderItem: OrderItem!
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var dishDescription: UILabel!
@@ -22,16 +22,17 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var count: UILabel!
     
-    func initFromItem(item: Item) {
+    func initFromItem(orderItem: OrderItem) {
         for label in [title, price, count, owner] {
             label.adjustsFontSizeToFitWidth = true
         }
+        self.orderItem = orderItem
         
-        self.item = item
+        let item = orderItem.item
         title.text = item.title
         price.text = "\(item.price!) $"
         dishDescription.text = item.dishDescription
-        count.text = String(Int(item.count!))
+        count.text = String(item.getCount())
         
         // make count label circular and add border:
         count.layer.cornerRadius = count.frame.size.height / 2
@@ -40,14 +41,18 @@ class ItemTableViewCell: UITableViewCell {
         count.layer.borderWidth = 3
         
         owner.text = ""
-        stepper.value = Double(item.count!)
+        stepper.value = Double(item.getCount())
         stepper.addTarget(self, action: #selector(self.orderValueChanged), forControlEvents: .ValueChanged)
     }
     
     func orderValueChanged(sender: UIStepper) {
         count.text = String(Int(stepper.value))
-        self.item.count = self.stepper.value
-        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-        Basket.shared.orderChanged(forItem: item)
+        if orderItem.owner == UIDevice.currentDevice().name {
+            self.orderItem.item.count = self.stepper.value
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+        }
+        
+        orderItem.count = Int(self.stepper.value)
+        TotalBasket.shared.orderChanged(orderItem)
     }
 }

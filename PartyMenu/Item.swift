@@ -25,15 +25,6 @@ class Item: NSManagedObject {
         return item
     }
     
-    func getOrderInfo() -> [String : String] {
-        var result = [String : String]()
-        result["itemId"] = id!
-        result["count"] = String(Int(count!))
-        result["owner"] = Constants.currentDeviceSection
-        
-        return result
-    }
-    
     func getCount() -> Int {
         return Int(count!)
     }

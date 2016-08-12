@@ -57,14 +57,17 @@ class MenuViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == Sections.items {
-            let cell = tableView.dequeueReusableCellWithIdentifier("imageItemCell", forIndexPath: indexPath) as! ItemTableViewCell
+            let id = CellId.imageItem
+            let cell = tableView.dequeueReusableCellWithIdentifier(id, forIndexPath: indexPath) as! ItemTableViewCell
+            
             let item = items[indexPath.row]
-            cell.initFromItem(item)
+            cell.initFromItem(OrderItem(item: item))
             
             return cell
         }
         else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("imageCategoryCell", forIndexPath: indexPath) as! CategoryTableViewCell
+            let id = CellId.imageCategory
+            let cell = tableView.dequeueReusableCellWithIdentifier(id, forIndexPath: indexPath) as! CategoryTableViewCell
             let category = categories[indexPath.row]
             cell.title.text = category.title
             cell.category = category

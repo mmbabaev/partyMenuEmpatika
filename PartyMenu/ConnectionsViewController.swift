@@ -11,9 +11,7 @@ import UIKit
 
 class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var browsingSwitch: UISwitch!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var acceptInvitesSwitch: UISwitch!
     
     var mcManager: ConnectionManager!
 
@@ -23,22 +21,9 @@ class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.delegate = self
         tableView.dataSource = self
         
-        browsingSwitch.addTarget(self, action: #selector(browsingSwitchChanged), forControlEvents: .ValueChanged)
-        
         mcManager = ConnectionManager.shared
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateTable), name: NotificationNames.connectedDevicesChanged, object: nil)
-    }
-    
-    func browsingSwitchChanged() {
-        if browsingSwitch.on {
-            print("START BROWSING")
-            mcManager.browser.startBrowsingForPeers()
-        }
-        else {
-            print("STOP BROWSING")
-            mcManager.browser.stopBrowsingForPeers()
-        }
     }
     
     func updateTable() {

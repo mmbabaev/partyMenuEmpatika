@@ -27,6 +27,8 @@ class ConnectionManager: NSObject {
     
     var delegate: ConnectionManagerDelegate?
     
+    var foundPeers = [MCPeerID]()
+    
     override init() {
         super.init()
         
@@ -80,10 +82,15 @@ extension ConnectionManager: MCNearbyServiceBrowserDelegate {
     func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         print("MC LOG: found peer: \(peerID.displayName)")
         
-        browser.invitePeer(peerID, toSession: session, withContext: nil, timeout: 20)
+        foundPeers.append(peerID)
+        
+        //browser.invitePeer(peerID, toSession: session, withContext: nil, timeout: 20)
     }
     
     func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        foundPeers = foundPeers.filter({
+            $0 != peerID
+        })
         print("MC LOG: lost peer \(peerID.displayName)")
     }
 }
@@ -103,21 +110,31 @@ extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
 
 extension ConnectionManager: MCSessionDelegate {
     
+    func sendFoundDevicesChangedNotification() {
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.foundDevicesChanged, object: nil)
+    }
+    
     func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
         
-        var s: String
+        var event: String
         switch state {
         case .Connected:
-            s = "Connected"
+            event = "Connected"
+            foundPeers.append(peerID)
+            sendFoundDevicesChangedNotification()
             
         case .Connecting:
-            s = "Connecting"
-        
+            event = "Connecting"
+            
         case .NotConnected:
-            s = "Not connected"
+            event = "Not connected"
+            foundPeers = foundPeers.filter({
+                $0 != peerID
+            })
+            sendFoundDevicesChangedNotification()
         }
         
-        print("MC LOG: \(peerID.displayName) \(s)")
+        print("MC LOG: \(peerID.displayName) \(event)")
             
         let notification = NotificationNames.connectedDevicesChanged
         

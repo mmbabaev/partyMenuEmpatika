@@ -7,20 +7,24 @@
 //
 
 import Foundation
+import UIKit
 
-class OrderItem{
+class OrderItem {
 
     var item: Item!
     var count: Int!
+    var owner: String!
     
-    init(item: Item, count: Int) {
+    init(item: Item, count: Int, owner: String) {
         self.item = item
         self.count = count
+        self.owner = owner
     }
     
     init(item: Item) {
         self.item = item
         self.count = item.count as! Int
+        self.owner = UIDevice.currentDevice().name
     }
     
     static func itemsInBasket() -> [OrderItem] {
@@ -32,6 +36,16 @@ class OrderItem{
         
         return result
     }
+    
+    func getOrderInfo() -> [String : String] {
+        var result = [String : String]()
+        result["itemId"] = item.id!
+        result["count"] = String(count)
+        result["owner"] = owner
+        
+        return result
+    }
+
 }
 
 

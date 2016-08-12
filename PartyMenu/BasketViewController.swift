@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-class BasketViewController: UITableViewController, BasketDelegate {
+class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
     
-    var basket: Basket!
+    var totalBasket: TotalBasket!
     
     override func viewDidLoad() {
-        basket = Basket.shared
-        basket.delegate = self
+        totalBasket = TotalBasket.shared
+        totalBasket.delegate = self
         
         let showAction = #selector(self.showSettings)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Подключение", style: .Plain, target: self, action: showAction)
@@ -29,9 +29,14 @@ class BasketViewController: UITableViewController, BasketDelegate {
     }
     
     var sections: [String] {
-        get {
-            return Array(basket.orders.keys)
-        }
+        return totalBasket.owners.map({
+            if $0 == UIDevice.currentDevice().name {
+                return Constants.currentDeviceSection
+            }
+            else {
+                return $0
+            }
+        })
     }
     
     func dataChanged() {
@@ -41,27 +46,11 @@ class BasketViewController: UITableViewController, BasketDelegate {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return basket.orders.count
+        return totalBasket.baskets.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == 0 {
-//            let predicate = NSPredicate(format: "count > 0")
-//            let itemsInBasket = Item.MR_findAllWithPredicate(predicate)
-//            if let count = itemsInBasket?.count {
-//                return count
-//            }
-//            else {
-//                return 0
-//            }
-//        }
-//        else {
-//            let owner = getOwner(byIndex: section + 1)
-//            return basket.orders[owner]!.count
-//        }
-        
-        let sectionName = sections[section]
-        return basket.orders[sectionName]!.count
+        return totalBasket.baskets[section].count
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -69,12 +58,14 @@ class BasketViewController: UITableViewController, BasketDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let section = sections[indexPath.section]
-        let orderItem = basket.orders[section]![indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("imageOrderCell", forIndexPath: indexPath) as! ItemTableViewCell
+        let orderItem = totalBasket[indexPath]
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellId.imageOrder, forIndexPath: indexPath) as! ItemTableViewCell
         
-        cell.initFromItem(orderItem.item)
-        if section != Constants.currentDeviceSection {
+        cell.initFromItem(orderItem)
+        
+        if !totalBasket.isAdmin &&
+            sections[indexPath.section] != Constants.currentDeviceSection {
+            
             cell.count.text = String(orderItem.count)
             cell.stepper.hidden = true
         }

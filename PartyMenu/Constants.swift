@@ -10,6 +10,15 @@ import Foundation
 
 struct NotificationNames {
     static let connectedDevicesChanged = "connectedDevicesChanges"
+    static let foundDevicesChanged = "foundDevicesChanges"
+}
+
+struct CellId {
+    static let imageOrder = "imageOrderCell"
+    static let peer = "peerCell"
+    static let imageItem = "imageItemCell"
+    static let imageCategory = "imageCategoryCell"
+    static let foundPeer = "foundPeerCell"
 }
 
 struct Constants {

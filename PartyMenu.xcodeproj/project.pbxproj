@@ -15,6 +15,10 @@
 		874A362D1D5731000078425D /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874A362C1D5731000078425D /* ConnectionManager.swift */; };
 		874A36301D573AD70078425D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874A362F1D573AD70078425D /* Constants.swift */; };
 		878F58061D55FEED0099BEBA /* Online-50-min.ico in Resources */ = {isa = PBXBuildFile; fileRef = 878F58051D55FEED0099BEBA /* Online-50-min.ico */; };
+		87BF228C1D5DCAE8006A9267 /* TotalBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF228B1D5DCAE8006A9267 /* TotalBasket.swift */; };
+		87BF228E1D5DCB85006A9267 /* CurrentUserBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF228D1D5DCB85006A9267 /* CurrentUserBasket.swift */; };
+		87BF22901D5DCB8D006A9267 /* UserBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF228F1D5DCB8D006A9267 /* UserBasket.swift */; };
+		87BF22931D5E022C006A9267 /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF22921D5E022C006A9267 /* InvitationViewController.swift */; };
 		87D517FF1D560E2400857BEE /* MenuModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87D517FD1D560E2400857BEE /* MenuModel.xcdatamodeld */; };
 		87D518041D560FF700857BEE /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D518001D560FF700857BEE /* Item+CoreDataProperties.swift */; };
 		87D518051D560FF700857BEE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D518011D560FF700857BEE /* Item.swift */; };
@@ -44,6 +48,10 @@
 		874A362C1D5731000078425D /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		874A362F1D573AD70078425D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		878F58051D55FEED0099BEBA /* Online-50-min.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = "Online-50-min.ico"; sourceTree = "<group>"; };
+		87BF228B1D5DCAE8006A9267 /* TotalBasket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalBasket.swift; sourceTree = "<group>"; };
+		87BF228D1D5DCB85006A9267 /* CurrentUserBasket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserBasket.swift; sourceTree = "<group>"; };
+		87BF228F1D5DCB8D006A9267 /* UserBasket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBasket.swift; sourceTree = "<group>"; };
+		87BF22921D5E022C006A9267 /* InvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		87D517FE1D560E2400857BEE /* MenuModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MenuModel.xcdatamodel; sourceTree = "<group>"; };
 		87D518001D560FF700857BEE /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		87D518011D560FF700857BEE /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -115,6 +123,7 @@
 				87D579251D55FC7B00083239 /* MenuViewController.swift */,
 				874A36261D5698F00078425D /* BasketViewController.swift */,
 				874A362A1D56B5BF0078425D /* ConnectionsViewController.swift */,
+				87BF22921D5E022C006A9267 /* InvitationViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -151,10 +160,21 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
+		87BF22911D5DCBA4006A9267 /* Baskets */ = {
+			isa = PBXGroup;
+			children = (
+				87BF228F1D5DCB8D006A9267 /* UserBasket.swift */,
+				87BF228D1D5DCB85006A9267 /* CurrentUserBasket.swift */,
+				87BF228B1D5DCAE8006A9267 /* TotalBasket.swift */,
+				874A36281D56ABA40078425D /* Basket.swift */,
+			);
+			name = Baskets;
+			sourceTree = "<group>";
+		};
 		87D518081D56101300857BEE /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				874A36281D56ABA40078425D /* Basket.swift */,
+				87BF22911D5DCBA4006A9267 /* Baskets */,
 				87D518031D560FF700857BEE /* Category.swift */,
 				87D518011D560FF700857BEE /* Item.swift */,
 				87D5180A1D56106600857BEE /* OrderItem.swift */,
@@ -247,6 +267,7 @@
 				TargetAttributes = {
 					87D5791F1D55FC7B00083239 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = FECH3P2YXH;
 					};
 				};
 			};
@@ -339,12 +360,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				87D518051D560FF700857BEE /* Item.swift in Sources */,
+				87BF22931D5E022C006A9267 /* InvitationViewController.swift in Sources */,
 				87D518061D560FF700857BEE /* Category+CoreDataProperties.swift in Sources */,
 				87D517FF1D560E2400857BEE /* MenuModel.xcdatamodeld in Sources */,
 				87D579261D55FC7B00083239 /* MenuViewController.swift in Sources */,
+				87BF228E1D5DCB85006A9267 /* CurrentUserBasket.swift in Sources */,
+				87BF22901D5DCB8D006A9267 /* UserBasket.swift in Sources */,
 				874A362B1D56B5BF0078425D /* ConnectionsViewController.swift in Sources */,
 				87D518041D560FF700857BEE /* Item+CoreDataProperties.swift in Sources */,
 				87D518151D5641A900857BEE /* CategoryTableViewCell.swift in Sources */,
+				87BF228C1D5DCAE8006A9267 /* TotalBasket.swift in Sources */,
 				874A36301D573AD70078425D /* Constants.swift in Sources */,
 				874A36271D5698F00078425D /* BasketViewController.swift in Sources */,
 				87D5180B1D56106600857BEE /* OrderItem.swift in Sources */,
@@ -467,11 +492,14 @@
 			baseConfigurationReference = 9832E4BF4E125A94D6CD736C /* Pods-PartyMenu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PartyMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = empatika.t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PartyMenu/PartyMenu-Bridging-Header.h";
 			};
 			name = Debug;
@@ -481,11 +509,14 @@
 			baseConfigurationReference = 9DCE1A2189925CD298B5BE72 /* Pods-PartyMenu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PartyMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = empatika.t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PartyMenu/PartyMenu-Bridging-Header.h";
 			};
 			name = Release;
