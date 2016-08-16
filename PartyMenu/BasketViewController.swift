@@ -17,15 +17,8 @@ class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
         totalBasket = TotalBasket.shared
         totalBasket.delegate = self
         
-        let showAction = #selector(self.showSettings)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Подключение", style: .Plain, target: self, action: showAction)
-        
         tableView.reloadData()
         tableView.rowHeight = 101
-    }
-    
-    func showSettings() {
-        performSegueWithIdentifier("showSettings", sender: self)
     }
     
     var sections: [String] {
@@ -63,11 +56,11 @@ class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
         
         cell.initFromItem(orderItem)
         
-        if !totalBasket.isAdmin &&
-            sections[indexPath.section] != Constants.currentDeviceSection {
-            
-            cell.count.text = String(orderItem.count)
-            cell.stepper.hidden = true
+        if !totalBasket.isAdmin {
+            if sections[indexPath.section] != Constants.currentDeviceSection {
+                //cell.count.text = String(orderItem.count)
+                cell.stepper.hidden = true
+            }
         }
         
         return cell

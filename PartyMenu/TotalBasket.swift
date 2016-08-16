@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 import UIKit
 
 protocol TotalBasketDelegate {
@@ -21,7 +22,9 @@ class TotalBasket {
     var baskets = [Basket]()
     var isAdmin: Bool = true {
         didSet {
-            loadCoreDataBasket()
+            if isAdmin == false {
+                baskets = [Basket]()
+            }
         }
     }
     
@@ -51,17 +54,30 @@ class TotalBasket {
         
         let item = Item.MR_findFirstByAttribute("id", withValue: itemId)!
         
+        print("receive data: \(dictionary)")
+        print(item.id)
+        print(item.title)
+        print(item.count)
+        
+        if owner == UIDevice.currentDevice().name {
+            item.count = count
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+        }
+        
         let ownerBaskets = baskets.filter({ $0.owner == owner })
         if ownerBaskets.isEmpty {
+            var basket: Basket!
             if owner == UIDevice.currentDevice().name {
-                baskets.append(CurrentUserBasket())
+                basket = CurrentUserBasket()
             }
             else {
-                baskets.append(UserBasket(owner: owner))
+                basket = UserBasket(owner: owner)
             }
+            basket.orders.append(OrderItem(item: item, count: count, owner: owner))
+            baskets.append(basket)
         }
         else {
-            var ownerBasket = ownerBaskets[0]
+            var ownerBasket = ownerBaskets.first!
             let ownersOrders = ownerBasket.orders
             
             let currentOrders = ownersOrders.filter({ $0.item.id == itemId })
@@ -69,10 +85,28 @@ class TotalBasket {
                 ownerBasket.orders.append(OrderItem(item: item, count: count, owner: owner))
             }
             else {
-                currentOrders[0].count = count
+                print(ownerBasket.owner)
+                print(ownerBasket.orders)
+                
+                for order in ownerBasket.orders {
+                    if order.item.id == itemId {
+                        print("item id : \(order)")
+                        print("item title : \(item.title)")
+                        order.count = count
+                        break
+                    }
+                }
+
                 ownerBasket.orders = ownerBasket.orders.filter({
                     $0.count != 0
                 })
+                
+                
+                if ownerBasket.orders.isEmpty {
+                    baskets = baskets.filter({
+                        $0.owner != ownerBasket.owner
+                    })
+                }
             }
         }
         
@@ -81,8 +115,11 @@ class TotalBasket {
     
     func orderChanged(order: OrderItem) {
         let dict = order.getOrderInfo()
+        
+        print("order changed dict: ")
+        print(dict)
         let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dict)
-        receivedData(dataToSend)
+        receivedData(dict)
         
 //        dict["owner"] = UIDevice.currentDevice().name
 //        dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dict)
@@ -113,6 +150,10 @@ extension TotalBasket: ConnectionManagerDelegate {
     func receivedData(data: NSData) {
         let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String, String>
         receivedData(dataDictionary)
+    }
+    
+    func acceptInvitation() {
+        isAdmin = false
     }
 }
 

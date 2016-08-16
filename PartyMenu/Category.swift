@@ -18,6 +18,9 @@ class Category: NSManagedObject {
     }
     
     func getItemsArr() -> [Item] {
+        print(items)
+        print(items?.count)
+        print(items?.allObjects.count)
         return items?.allObjects as! [Item]
     }
     
@@ -52,8 +55,12 @@ class Category: NSManagedObject {
             jsonItem in
             return Item.create(fromJson: jsonItem)
         })
+        
         category.items = NSSet(array: items)
+        print("\(category.title) - \(category.items!.count) ")
         category.isRoot = false
+        
+       // NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
         
         return category
     }

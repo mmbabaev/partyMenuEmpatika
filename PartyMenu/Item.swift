@@ -26,6 +26,11 @@ class Item: NSManagedObject {
     }
     
     func getCount() -> Int {
-        return Int(count!)
+        if let countValue = count {
+            return Int(countValue)
+        }
+        else {
+            return 0
+        }
     }
 }

@@ -24,9 +24,6 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let showAction = #selector(self.showConnections)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Подключение", style: .Plain, target: self, action: showAction)
-        
         if isRoot {
             title = "Меню"
             initRoots()
@@ -116,18 +113,12 @@ class MenuViewController: UITableViewController {
             if let parentCategory = (sender as! CategoryTableViewCell).category {
                 let vc = segue.destinationViewController as! MenuViewController
                 vc.items = parentCategory.getItemsArr()
+                print("items count: \(vc.items)")
                 vc.categories = parentCategory.getSubdirectoriesArr()
                 vc.isRoot = false
                 vc.title = parentCategory.title
             }
         }
-        if segue.identifier == "showSettings" {
-            print("show settings segue")
-        }
-    }
-    
-    func showConnections() {
-        performSegueWithIdentifier("showSettings", sender: self)
     }
 }
 

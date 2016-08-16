@@ -11,6 +11,7 @@ import MultipeerConnectivity
 
 protocol ConnectionManagerDelegate {
     func receivedData(data: NSData)
+    func acceptInvitation()
 }
 
 class ConnectionManager: NSObject {
@@ -83,6 +84,7 @@ extension ConnectionManager: MCNearbyServiceBrowserDelegate {
         print("MC LOG: found peer: \(peerID.displayName)")
         
         foundPeers.append(peerID)
+        sendFoundDevicesChangedNotification()
         
         //browser.invitePeer(peerID, toSession: session, withContext: nil, timeout: 20)
     }
@@ -91,6 +93,8 @@ extension ConnectionManager: MCNearbyServiceBrowserDelegate {
         foundPeers = foundPeers.filter({
             $0 != peerID
         })
+        
+        sendFoundDevicesChangedNotification()
         print("MC LOG: lost peer \(peerID.displayName)")
     }
 }
@@ -104,6 +108,7 @@ extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
         
         //TODO: change this
         print("invitation from peer : \(peerID.displayName)")
+        delegate?.acceptInvitation()
         invitationHandler(true, self.session)
     }
 }

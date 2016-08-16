@@ -41,7 +41,7 @@ class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("peerCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellId.peer, forIndexPath: indexPath)
         cell.textLabel!.text = mcManager.connectedDevices[indexPath.row]
         return cell
     }

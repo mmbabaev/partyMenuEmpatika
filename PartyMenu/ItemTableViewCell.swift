@@ -30,9 +30,23 @@ class ItemTableViewCell: UITableViewCell {
         
         let item = orderItem.item
         title.text = item.title
-        price.text = "\(item.price!) $"
+        if let priceValue = item.price {
+            price.text = "\(priceValue) $"
+        }
+        else {
+            price.text = "-"
+        }
+        
         dishDescription.text = item.dishDescription
-        count.text = String(item.getCount())
+        if orderItem.owner == UIDevice.currentDevice().name {
+            count.text = String(item.getCount())
+            stepper.value = Double(item.getCount())
+        }
+        else {
+            count.text = String(orderItem.count)
+            stepper.value = Double(orderItem.count)
+        }
+        
         
         // make count label circular and add border:
         count.layer.cornerRadius = count.frame.size.height / 2
@@ -41,7 +55,7 @@ class ItemTableViewCell: UITableViewCell {
         count.layer.borderWidth = 3
         
         owner.text = ""
-        stepper.value = Double(item.getCount())
+        
         stepper.addTarget(self, action: #selector(self.orderValueChanged), forControlEvents: .ValueChanged)
     }
     
@@ -49,7 +63,7 @@ class ItemTableViewCell: UITableViewCell {
         count.text = String(Int(stepper.value))
         if orderItem.owner == UIDevice.currentDevice().name {
             self.orderItem.item.count = self.stepper.value
-            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+            //NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
         }
         
         orderItem.count = Int(self.stepper.value)
