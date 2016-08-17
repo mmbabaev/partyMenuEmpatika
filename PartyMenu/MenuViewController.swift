@@ -39,7 +39,7 @@ class MenuViewController: UITableViewController {
     
     func initRoots() {
         if Category.roots.isEmpty {
-            DataManager.loadJson() {
+            RequestManager.loadJson() {
                 self.categories = Category.roots
                 self.tableView.reloadData()
             }

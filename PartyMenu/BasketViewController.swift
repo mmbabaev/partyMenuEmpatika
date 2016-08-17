@@ -14,6 +14,7 @@ import UIKit
 class TotalBasketViewController: UITableViewController {
     
     var totalBasket: TotalBasket!
+    var makeOrderButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         totalBasket = TotalBasket.shared
@@ -22,6 +23,9 @@ class TotalBasketViewController: UITableViewController {
         
         tableView.reloadData()
         tableView.rowHeight = 101
+        
+        makeOrderButton = UIBarButtonItem(title: ButtonTitles.makeOrder, style: .Plain, target: self, action: #selector(makeOrderClicked))
+        navigationItem.rightBarButtonItem = makeOrderButton
     }
     
     var sections: [String] {
@@ -37,9 +41,27 @@ class TotalBasketViewController: UITableViewController {
     
     func updateTable() {
         NSOperationQueue.mainQueue().addOperationWithBlock({
-            self.totalBasket.coreDataChange()
+            self.makeOrderButton.enabled = self.totalBasket.isAdmin
             self.tableView.reloadData()
         })
+    }
+    
+    func makeOrderClicked() {
+        let sums = totalBasket.baskets.map({ $0.sum })
+        let totalSum = sums.reduce(0, combine: { $0 + $1 })
+        
+        let alertController = UIAlertController(title: "Подтверждение заказа", message: "Общая сумма заказа: \(totalSum) ₽\n Вы уверены, что хотите сделать заказ?", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Отменить", style: .Cancel, handler: nil)
+        let acceptAction = UIAlertAction(title: "Заказать", style: .Default) {
+            action in
+            
+            print(self.totalBasket.json)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(acceptAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

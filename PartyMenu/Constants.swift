@@ -22,6 +22,10 @@ struct CellId {
     static let foundPeer = "foundPeerCell"
 }
 
+struct ButtonTitles {
+    static let makeOrder = "Заказать"
+}
+
 struct Constants {
     static let currentDeviceSection = "Мое"
 }

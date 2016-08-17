@@ -12,7 +12,8 @@ import TSMessages
 
 protocol ConnectionManagerDelegate {
     func receivedData(data: NSData)
-    func acceptInvitation()
+    func acceptInvitation(peerName: String)
+    func lostConnection(peerName: String)
 }
 
 class ConnectionManager: NSObject {
@@ -69,15 +70,6 @@ class ConnectionManager: NSObject {
             print("SEND TO ALL ERROR : \(error.localizedDescription)")
         }
     }
-    
-//    func acceptInvitation() {
-//        self.invitationHandler(true, session)
-//        invitationHandler(true, session)
-//    }
-//    
-//    func declineInvitation() {
-//        invitationHandler(false, nil)
-//    }
 }
 
 extension ConnectionManager: MCNearbyServiceBrowserDelegate {
@@ -109,7 +101,7 @@ extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
         
         //TODO: change this
         print("invitation from peer : \(peerID.displayName)")
-        delegate?.acceptInvitation()
+        delegate?.acceptInvitation(peerID.displayName)
         invitationHandler(true, self.session)
     }
 }
@@ -143,9 +135,9 @@ extension ConnectionManager: MCSessionDelegate {
             NSOperationQueue.mainQueue().addOperationWithBlock() {
                  TSMessage.showNotificationInViewController(self.rootVC, title: "\(peerID.displayName) не подключен", subtitle: "", type: .Error)
             }
-            
+            delegate?.lostConnection(peerID.displayName)
             event = "Not connected"
-            
+        
             sendFoundDevicesChangedNotification()
         }
         

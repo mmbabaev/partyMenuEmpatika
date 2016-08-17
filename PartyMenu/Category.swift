@@ -60,8 +60,6 @@ class Category: NSManagedObject {
         print("\(category.title) - \(category.items!.count) ")
         category.isRoot = false
         
-       // NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-        
         return category
     }
 }

@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 import MagicalRecord
 
-class DataManager {
+class RequestManager {
     static let menuUrl = "http://testappall.1.doubleb-automation-production.appspot.com/api/menu"
     
     static func loadJson(completeBlock: () -> Void) {
@@ -32,4 +32,10 @@ class DataManager {
                 completeBlock()
         }
     }
+    
+    static func makeOrder(jsonOrder: String, completeBlock: () -> Void) {
+        let params = ["order" : jsonOrder]
+        
+    }
 }
+

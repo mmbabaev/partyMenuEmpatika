@@ -9,13 +9,19 @@
 import Foundation
 import CoreData
 import UIKit
-
+import SwiftyJSON
 
 
 class TotalBasket {
     
     var owner: String!
     var baskets = [Basket]()
+    
+    var admin = UIDevice.currentDevice().name {
+        didSet {
+            isAdmin = admin == UIDevice.currentDevice().name
+        }
+    }
     var isAdmin: Bool = true {
         didSet {
             if isAdmin == false {
@@ -161,6 +167,41 @@ class TotalBasket {
     subscript(indexPath: NSIndexPath) -> OrderItem {
         return baskets[indexPath.section].orders[indexPath.row]
     }
+    
+    var json: String {
+        var orders = [String : Int]()
+        
+        //fill orders
+        for basket in baskets {
+            for order in basket.orders {
+                let id = order.itemId!
+                if let oldCount = orders[id] {
+                    orders[id] = oldCount + order.count
+                }
+                else {
+                    orders[id] = order.count
+                }
+            }
+        }
+        
+        let jsonItems: [JSON] = orders.map({
+            id, count in
+            return [
+                "group_modifiers" : [],
+                "single_modifiers" : [],
+                "item_id" : id,
+                "quantity" : count
+            ]
+        })
+        
+        let filePath = NSBundle.mainBundle().pathForResource("order", ofType: "json")!
+        let jsonData = NSData(contentsOfFile: filePath)!
+        let jsonString = String(data: jsonData, encoding: NSUTF8StringEncoding)!
+        var json = JSON(jsonString)
+        json["items"] = JSON(jsonItems)
+        
+        return json.stringValue
+    }
 }
 
 extension TotalBasket: ConnectionManagerDelegate {
@@ -169,8 +210,16 @@ extension TotalBasket: ConnectionManagerDelegate {
         receivedData(dataDictionary)
     }
     
-    func acceptInvitation() {
-        isAdmin = false
+    func acceptInvitation(peerName: String) {
+        admin = peerName
+    }
+    
+    func lostConnection(peerName: String) {
+        if peerName == admin {
+            admin = UIDevice.currentDevice().name
+        }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.dataChanged, object: nil)
     }
 }
 

@@ -18,11 +18,8 @@ protocol Basket {
 extension Basket {
     
     var sum: Double {
-        var result = 0.0
-        for order in orders {
-            result += order.item.getPrice() * Double(order.count)
-        }
-        return result
+        let prices = orders.map({ $0.item.getPrice() * Double($0.count) })
+        return prices.reduce(0, combine: { $0 + $1 })
     }
     
     var isEmpty: Bool {
