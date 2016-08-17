@@ -50,9 +50,9 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func invitePeers() {
         for peer in selectedPeers {
-            manager.browser.invitePeer(peer, toSession: manager.session, withContext: nil, timeout: 10)
+            manager.browser.invitePeer(peer, toSession: manager.session, withContext: nil, timeout: 20)
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func updateTable() {

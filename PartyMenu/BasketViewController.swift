@@ -9,13 +9,16 @@
 import Foundation
 import UIKit
 
-class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
+//observer for "dataChanged"
+
+class TotalBasketViewController: UITableViewController {
     
     var totalBasket: TotalBasket!
     
     override func viewDidLoad() {
         totalBasket = TotalBasket.shared
-        totalBasket.delegate = self
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateTable), name: NotificationNames.dataChanged, object: nil)
         
         tableView.reloadData()
         tableView.rowHeight = 101
@@ -32,7 +35,7 @@ class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
         })
     }
     
-    func dataChanged() {
+    func updateTable() {
         NSOperationQueue.mainQueue().addOperationWithBlock({
             self.totalBasket.coreDataChange()
             self.tableView.reloadData()
@@ -48,7 +51,7 @@ class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
+        return sections[section] + String(" \(totalBasket.baskets[section].sum) ₽")
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

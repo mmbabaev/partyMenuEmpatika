@@ -15,6 +15,8 @@ class Sections {
     static let categories = 1
 }
 
+//observer for "dataChanged"
+
 class MenuViewController: UITableViewController {
     
     var isRoot = true
@@ -23,6 +25,8 @@ class MenuViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateTable), name: NotificationNames.dataChanged, object: nil)
         
         if isRoot {
             title = "Меню"
@@ -46,14 +50,14 @@ class MenuViewController: UITableViewController {
     }
     
     func updateTable() {
-        items = items.map({
-            let item = Item.MR_findFirstByAttribute("id", withValue: $0.id!)!
-            print("upd id: \(item.id!), count: \(item.getCount())")
-            print(item.id!)
-            print(item.count)
-            return item
-        })
-        tableView.reloadData()
+        NSOperationQueue.mainQueue().addOperationWithBlock() {
+            TotalBasket.shared.coreDataChange()
+            self.items = self.items.map({
+                let item = Item.MR_findFirstByAttribute("id", withValue: $0.id!)!
+                return item
+            })
+            self.tableView.reloadData()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {

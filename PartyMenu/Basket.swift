@@ -16,6 +16,15 @@ protocol Basket {
 }
 
 extension Basket {
+    
+    var sum: Double {
+        var result = 0.0
+        for order in orders {
+            result += order.item.getPrice() * Double(order.count)
+        }
+        return result
+    }
+    
     var isEmpty: Bool {
         return orders.isEmpty
     }

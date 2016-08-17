@@ -33,4 +33,11 @@ class Item: NSManagedObject {
             return 0
         }
     }
+    
+    func getPrice() -> Double {
+        if let priceValue = price {
+            return Double(priceValue)
+        }
+        return 0.0
+    }
 }

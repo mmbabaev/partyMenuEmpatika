@@ -8,5 +8,7 @@ target 'PartyMenu' do
     pod 'SwiftyJSON'
     pod 'SDWebImage', '~>3.8'
     pod 'MagicalRecord'
+    pod 'TSMessages', :git => 'https://github.com/KrauseFx/TSMessages.git'
 end
 
+ 

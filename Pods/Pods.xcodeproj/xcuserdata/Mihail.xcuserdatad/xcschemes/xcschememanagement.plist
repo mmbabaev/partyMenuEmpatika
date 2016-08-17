@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>HexColors.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MagicalRecord.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,20 +34,35 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TSMessages.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>29DFC2AFD3757F29C7835E153B7DD423</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6B0C5039549FF2EA92650B233FF21A8D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9FC9B01F0605D1F9931A38F48B373C25</key>
+		<key>94732821C20C31DEDC85C68F8FF5EF42</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CC5329C3ADF6821E624335789DC1ECA5</key>
+		<key>C408D4E183A88B763793C217A66A1950</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +72,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EAD57E912AC8F4222B3139FABE916A30</key>
+		<key>FA50D83B0C6FB0DC1A5EC82859BA3D41</key>
 		<dict>
 			<key>primary</key>
 			<true/>

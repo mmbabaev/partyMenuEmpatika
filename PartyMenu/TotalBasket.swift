@@ -10,13 +10,9 @@ import Foundation
 import CoreData
 import UIKit
 
-protocol TotalBasketDelegate {
-    func dataChanged()
-}
+
 
 class TotalBasket {
-    
-    var delegate: TotalBasketDelegate?
     
     var owner: String!
     var baskets = [Basket]()
@@ -48,6 +44,11 @@ class TotalBasket {
     }
     
     func coreDataChange() {
+        for item in Item.MR_findAll()! {
+            (item as! Item).count = 0
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+        }
+        
         for basket in baskets {
             if basket.owner == UIDevice.currentDevice().name {
                 for order in basket.orders {
@@ -65,24 +66,10 @@ class TotalBasket {
         
         let item = Item.MR_findFirstByAttribute("id", withValue: itemId)!
         
-        print("receive data: \(dictionary)")
-        print(item.id)
-        print(item.title)
-        print(item.count)
-        
         if owner == UIDevice.currentDevice().name {
             NSOperationQueue.mainQueue().addOperationWithBlock() {
                 item.count = count
-                print("save an wait!")
-                print(item.count)
-                print(count)
-                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-                
-                print("old id: \(item.id!)")
-                let newItem = Item.MR_findFirstByAttribute("id", withValue: item.id!)
-                print("id: \(newItem?.id!), count: \(newItem?.getCount())")
-                print(newItem?.count)
-            }
+                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()            }
         }
         
         let ownerBaskets = baskets.filter({ $0.owner == owner })
@@ -140,7 +127,7 @@ class TotalBasket {
             }
             print()
         }
-        delegate?.dataChanged()
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.dataChanged, object: nil)
     }
     
     func orderChanged(order: OrderItem) {

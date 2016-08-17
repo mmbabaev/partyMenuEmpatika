@@ -11,6 +11,7 @@ import Foundation
 struct NotificationNames {
     static let connectedDevicesChanged = "connectedDevicesChanges"
     static let foundDevicesChanged = "foundDevicesChanges"
+    static let dataChanged = "dataChanged"
 }
 
 struct CellId {

@@ -8,6 +8,7 @@
 
 import Foundation
 import MultipeerConnectivity
+import TSMessages
 
 protocol ConnectionManagerDelegate {
     func receivedData(data: NSData)
@@ -115,6 +116,11 @@ extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
 
 extension ConnectionManager: MCSessionDelegate {
     
+    var rootVC: UIViewController {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return (appDelegate.window?.rootViewController)!
+    }
+    
     func sendFoundDevicesChangedNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.foundDevicesChanged, object: nil)
     }
@@ -125,17 +131,21 @@ extension ConnectionManager: MCSessionDelegate {
         switch state {
         case .Connected:
             event = "Connected"
-            foundPeers.append(peerID)
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                TSMessage.showNotificationInViewController(self.rootVC, title: "\(peerID.displayName) подключен", subtitle: "", type: .Success)
+            }
             sendFoundDevicesChangedNotification()
             
         case .Connecting:
             event = "Connecting"
             
         case .NotConnected:
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                 TSMessage.showNotificationInViewController(self.rootVC, title: "\(peerID.displayName) не подключен", subtitle: "", type: .Error)
+            }
+            
             event = "Not connected"
-            foundPeers = foundPeers.filter({
-                $0 != peerID
-            })
+            
             sendFoundDevicesChangedNotification()
         }
         

@@ -9,5 +9,4 @@
 #ifndef PartyMenu_Bridging_Header_h
 #define PartyMenu_Bridging_Header_h
 
-
 #endif /* PartyMenu_Bridging_Header_h */

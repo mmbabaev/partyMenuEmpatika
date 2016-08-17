@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (3.4.1)
+  - HexColors (2.3.0)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
@@ -7,17 +8,31 @@ PODS:
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
   - SwiftyJSON (2.3.2)
+  - TSMessages (0.9.13):
+    - HexColors (~> 2.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - MagicalRecord
   - SDWebImage (~> 3.8)
   - SwiftyJSON
+  - TSMessages (from `https://github.com/KrauseFx/TSMessages.git`)
+
+EXTERNAL SOURCES:
+  TSMessages:
+    :git: https://github.com/KrauseFx/TSMessages.git
+
+CHECKOUT OPTIONS:
+  TSMessages:
+    :commit: e63f23304f781dcadbac31e6d338f3105fb3cd78
+    :git: https://github.com/KrauseFx/TSMessages.git
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  TSMessages: 6e403b790139636c15ab4f51946537095e03e79c
 
 COCOAPODS: 0.39.0

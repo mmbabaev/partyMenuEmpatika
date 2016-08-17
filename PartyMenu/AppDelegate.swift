@@ -13,8 +13,12 @@ import MagicalRecord
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
+    var currentViewControoller: UIViewController {
+        let tabVC = (window?.rootViewController as! UITabBarController).selectedViewController!
+        return (tabVC as! UINavigationController).visibleViewController!
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         MagicalRecord.setupCoreDataStackWithAutoMigratingSqliteStoreNamed("MenuParty")
