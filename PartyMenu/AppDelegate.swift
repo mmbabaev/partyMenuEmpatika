@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MagicalRecord.setupCoreDataStackWithAutoMigratingSqliteStoreNamed("MenuParty")
         
         ConnectionManager.shared
+        TotalBasket.shared
         
         return true
     }

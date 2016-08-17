@@ -11,7 +11,16 @@ import UIKit
 
 class OrderItem {
 
-    var item: Item!
+    var item: Item! {
+        set {
+            itemId = newValue.id!
+        }
+        get {
+            return Item.MR_findFirstByAttribute("id", withValue: itemId)
+        }
+    }
+    
+    var itemId: String!
     var count: Int!
     var owner: String!
     
@@ -39,6 +48,7 @@ class OrderItem {
     
     func getOrderInfo() -> [String : String] {
         var result = [String : String]()
+        print("sending \(item.id!)")
         result["itemId"] = item.id!
         result["count"] = String(count)
         result["owner"] = owner

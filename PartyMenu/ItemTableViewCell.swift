@@ -38,14 +38,17 @@ class ItemTableViewCell: UITableViewCell {
         }
         
         dishDescription.text = item.dishDescription
-        if orderItem.owner == UIDevice.currentDevice().name {
-            count.text = String(item.getCount())
-            stepper.value = Double(item.getCount())
-        }
-        else {
-            count.text = String(orderItem.count)
-            stepper.value = Double(orderItem.count)
-        }
+        
+        count.text = String(orderItem.count)
+        stepper.value = Double(orderItem.count)
+//        if orderItem.owner == UIDevice.currentDevice().name {
+//            count.text = String(item.getCount())
+//            stepper.value = Double(item.getCount())
+//        }
+//        else {
+//            count.text = String(orderItem.count)
+//            stepper.value = Double(orderItem.count)
+//        }
         
         
         // make count label circular and add border:

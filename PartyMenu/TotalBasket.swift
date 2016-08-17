@@ -28,7 +28,7 @@ class TotalBasket {
         }
     }
     
-    static var shared: TotalBasket = TotalBasket()
+    static let shared: TotalBasket = TotalBasket()
     
     init() {
         ConnectionManager.shared.delegate = self
@@ -47,6 +47,17 @@ class TotalBasket {
         }
     }
     
+    func coreDataChange() {
+        for basket in baskets {
+            if basket.owner == UIDevice.currentDevice().name {
+                for order in basket.orders {
+                    order.item.count = order.count
+                    NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+                }
+            }
+        }
+    }
+    
     func receivedData(dictionary: [String : String]) {
         let itemId = dictionary["itemId"]!
         let count = Int(dictionary["count"]!)!
@@ -60,8 +71,18 @@ class TotalBasket {
         print(item.count)
         
         if owner == UIDevice.currentDevice().name {
-            item.count = count
-            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                item.count = count
+                print("save an wait!")
+                print(item.count)
+                print(count)
+                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+                
+                print("old id: \(item.id!)")
+                let newItem = Item.MR_findFirstByAttribute("id", withValue: item.id!)
+                print("id: \(newItem?.id!), count: \(newItem?.getCount())")
+                print(newItem?.count)
+            }
         }
         
         let ownerBaskets = baskets.filter({ $0.owner == owner })
@@ -110,6 +131,15 @@ class TotalBasket {
             }
         }
         
+        for basket in baskets {
+            print(basket.owner)
+            for order in basket.orders {
+                print(order.item.title)
+                print(order.item.id)
+                print(order.count)
+            }
+            print()
+        }
         delegate?.dataChanged()
     }
     

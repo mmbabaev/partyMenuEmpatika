@@ -34,6 +34,7 @@ class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
     
     func dataChanged() {
         NSOperationQueue.mainQueue().addOperationWithBlock({
+            self.totalBasket.coreDataChange()
             self.tableView.reloadData()
         })
     }
@@ -55,10 +56,11 @@ class TotalBasketViewController: UITableViewController, TotalBasketDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier(CellId.imageOrder, forIndexPath: indexPath) as! ItemTableViewCell
         
         cell.initFromItem(orderItem)
+        cell.stepper.hidden = false
         
         if !totalBasket.isAdmin {
+            print(sections[indexPath.section])
             if sections[indexPath.section] != Constants.currentDeviceSection {
-                //cell.count.text = String(orderItem.count)
                 cell.stepper.hidden = true
             }
         }

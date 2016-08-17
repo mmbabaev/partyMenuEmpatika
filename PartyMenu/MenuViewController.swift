@@ -45,10 +45,21 @@ class MenuViewController: UITableViewController {
         }
     }
     
+    func updateTable() {
+        items = items.map({
+            let item = Item.MR_findFirstByAttribute("id", withValue: $0.id!)!
+            print("upd id: \(item.id!), count: \(item.getCount())")
+            print(item.id!)
+            print(item.count)
+            return item
+        })
+        tableView.reloadData()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        tableView.reloadData()
+        updateTable()
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -59,6 +70,10 @@ class MenuViewController: UITableViewController {
             
             let item = items[indexPath.row]
             cell.initFromItem(OrderItem(item: item))
+            
+            let count = item.getCount()
+            cell.stepper.value = Double(count)
+            cell.count.text = String(count)
             
             return cell
         }
