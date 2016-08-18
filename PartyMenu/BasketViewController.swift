@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import TSMessages
 
 //observer for "dataChanged"
 
@@ -56,6 +57,15 @@ class TotalBasketViewController: UITableViewController {
             action in
             
             print(self.totalBasket.json)
+            RequestManager.makeOrder(self.totalBasket.json) {
+                isSuccess in
+                if isSuccess {
+                    TSMessage.showNotificationInViewController(rootVC, title: "Заказ отправлен", subtitle: "", type: .Success)
+                }
+                else {
+                    TSMessage.showNotificationInViewController(rootVC, title: "Заказ не отправлен", subtitle: "", type: .Error)
+                }
+            }
         }
         
         alertController.addAction(cancelAction)

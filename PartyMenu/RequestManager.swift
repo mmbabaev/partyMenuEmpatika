@@ -12,7 +12,8 @@ import SwiftyJSON
 import MagicalRecord
 
 class RequestManager {
-    static let menuUrl = "http://testappall.1.doubleb-automation-production.appspot.com/api/menu"
+    static let menuUrl      = "http://testappall.1.doubleb-automation-production.appspot.com/api/menu"
+    static let makeOrderUrl = "http://testappall.1.doubleb-automation-production.appspot.com/api/order?client_id=123158"
     
     static func loadJson(completeBlock: () -> Void) {
 
@@ -33,9 +34,24 @@ class RequestManager {
         }
     }
     
-    static func makeOrder(jsonOrder: String, completeBlock: () -> Void) {
-        let params = ["order" : jsonOrder]
+    static func makeOrder(jsonOrder: String, completeBlock: (Bool) -> Void) {
+        let params = [
+            "order" : jsonOrder
+        ]
         
+        
+        Alamofire.request(.POST, makeOrderUrl, parameters: params).responseJSON {
+            response in
+            if response.result.value != nil {
+                let message = String(data: response.data!, encoding: NSUTF8StringEncoding)
+                print(message?.unicodeDeparse)
+                completeBlock(true)
+            }
+            else {
+                print("request error: \(response.result.error!.localizedDescription)")
+            }
+            
+        }
     }
 }
 

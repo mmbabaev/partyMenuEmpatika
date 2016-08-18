@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TSMessages
 
 class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 

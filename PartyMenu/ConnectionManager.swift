@@ -95,23 +95,25 @@ extension ConnectionManager: MCNearbyServiceBrowserDelegate {
 extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
     
     func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
-//        self.invitationHandler = invitationHandler
-//        
-//        delegate?.invitationWasReceived(fromPeer: peerID.displayName)
-        
-        //TODO: change this
         print("invitation from peer : \(peerID.displayName)")
-        delegate?.acceptInvitation(peerID.displayName)
-        invitationHandler(true, self.session)
+        
+        let invitationAlert = UIAlertController(title: "Приглашение", message: "Пользователь \(peerID.displayName) приглашает вас создать совместный заказ", preferredStyle: .ActionSheet)
+        let acceptAction = UIAlertAction(title: "Принять", style: .Default) {
+            action in
+            self.delegate?.acceptInvitation(peerID.displayName)
+            invitationHandler(true, self.session)
+        }
+        
+        let declineAction = UIAlertAction(title: "Отклонить", style: .Cancel, handler: nil)
+        
+        invitationAlert.addAction(declineAction)
+        invitationAlert.addAction(acceptAction)
+        
+        rootVC.presentViewController(invitationAlert, animated: true, completion: nil)
     }
 }
 
 extension ConnectionManager: MCSessionDelegate {
-    
-    var rootVC: UIViewController {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        return (appDelegate.window?.rootViewController)!
-    }
     
     func sendFoundDevicesChangedNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.foundDevicesChanged, object: nil)
@@ -124,7 +126,7 @@ extension ConnectionManager: MCSessionDelegate {
         case .Connected:
             event = "Connected"
             NSOperationQueue.mainQueue().addOperationWithBlock() {
-                TSMessage.showNotificationInViewController(self.rootVC, title: "\(peerID.displayName) подключен", subtitle: "", type: .Success)
+                TSMessage.showNotificationInViewController(rootVC, title: "\(peerID.displayName) подключен", subtitle: "", type: .Success)
             }
             sendFoundDevicesChangedNotification()
             
@@ -133,7 +135,7 @@ extension ConnectionManager: MCSessionDelegate {
             
         case .NotConnected:
             NSOperationQueue.mainQueue().addOperationWithBlock() {
-                 TSMessage.showNotificationInViewController(self.rootVC, title: "\(peerID.displayName) не подключен", subtitle: "", type: .Error)
+                 TSMessage.showNotificationInViewController(rootVC, title: "\(peerID.displayName) не подключен", subtitle: "", type: .Error)
             }
             delegate?.lostConnection(peerID.displayName)
             event = "Not connected"

@@ -30,6 +30,10 @@ class TotalBasket {
         }
     }
     
+    var sum: Double {
+        return baskets.reduce(0.0, combine: { $0 + $1.sum })
+    }
+    
     static let shared: TotalBasket = TotalBasket()
     
     init() {
@@ -99,8 +103,6 @@ class TotalBasket {
                 ownerBasket.orders.append(OrderItem(item: item, count: count, owner: owner))
             }
             else {
-                print(ownerBasket.owner)
-                print(ownerBasket.orders)
                 
                 for order in ownerBasket.orders {
                     if order.item.id == itemId {
@@ -124,15 +126,6 @@ class TotalBasket {
             }
         }
         
-        for basket in baskets {
-            print(basket.owner)
-            for order in basket.orders {
-                print(order.item.title)
-                print(order.item.id)
-                print(order.count)
-            }
-            print()
-        }
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.dataChanged, object: nil)
     }
     
@@ -143,9 +136,6 @@ class TotalBasket {
         print(dict)
         let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dict)
         receivedData(dict)
-        
-//        dict["owner"] = UIDevice.currentDevice().name
-//        dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dict)
         
         ConnectionManager.shared.sendToAllData(dataToSend)
     }
@@ -169,12 +159,12 @@ class TotalBasket {
     }
     
     var json: String {
-        var orders = [String : Int]()
+        var orders = [Int : Int]()
         
         //fill orders
         for basket in baskets {
             for order in basket.orders {
-                let id = order.itemId!
+                let id = Int(order.itemId!)!
                 if let oldCount = orders[id] {
                     orders[id] = oldCount + order.count
                 }
@@ -184,23 +174,27 @@ class TotalBasket {
             }
         }
         
-        let jsonItems: [JSON] = orders.map({
-            id, count in
-            return [
+        let jsonItems: [AnyObject] = orders.map ({
+            (id, count) in
+            let jsonItem: AnyObject = [
                 "group_modifiers" : [],
                 "single_modifiers" : [],
                 "item_id" : id,
                 "quantity" : count
             ]
+            return jsonItem
         })
         
-        let filePath = NSBundle.mainBundle().pathForResource("order", ofType: "json")!
-        let jsonData = NSData(contentsOfFile: filePath)!
-        let jsonString = String(data: jsonData, encoding: NSUTF8StringEncoding)!
-        var json = JSON(jsonString)
-        json["items"] = JSON(jsonItems)
+        orderDict["total_sum"] = self.sum
+        orderDict["items"] = jsonItems
         
-        return json.stringValue
+        do {
+            let data = try NSJSONSerialization.dataWithJSONObject(orderDict, options: .PrettyPrinted)
+            return String(data: data, encoding: NSUTF8StringEncoding)!
+        }
+        catch {
+            return ""
+        }
     }
 }
 
