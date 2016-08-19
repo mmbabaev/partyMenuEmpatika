@@ -10,6 +10,7 @@ import UIKit
 
 class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var connectedDevicesLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var mcManager: ConnectionManager!
@@ -17,6 +18,7 @@ class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        connectedDevicesLabel.adjustsFontSizeToFitWidth = true
         tableView.delegate = self
         tableView.dataSource = self
         

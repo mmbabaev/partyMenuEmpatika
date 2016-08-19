@@ -83,9 +83,7 @@ extension ConnectionManager: MCNearbyServiceBrowserDelegate {
     }
     
     func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        foundPeers = foundPeers.filter({
-            $0 != peerID
-        })
+        foundPeers = foundPeers.filter({ $0 != peerID })
         
         sendFoundDevicesChangedNotification()
         print("MC LOG: lost peer \(peerID.displayName)")
@@ -97,7 +95,7 @@ extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
     func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
         print("invitation from peer : \(peerID.displayName)")
         
-        let invitationAlert = UIAlertController(title: "Приглашение", message: "Пользователь \(peerID.displayName) приглашает вас создать совместный заказ", preferredStyle: .ActionSheet)
+        let invitationAlert = UIAlertController(title: "Приглашение", message: "Пользователь \(peerID.displayName) приглашает вас создать совместный заказ", preferredStyle: .Alert)
         let acceptAction = UIAlertAction(title: "Принять", style: .Default) {
             action in
             self.delegate?.acceptInvitation(peerID.displayName)
