@@ -41,7 +41,7 @@ var orderDict = [
     "delivery_type": 0,
     "order_gifts": [  ],
     "total_sum": 280,
-    "venue_id": 4852998169690112,
+    "venue_id": "4852998169690112",
     "device_type": 0,
     "comment": "",
     "client": [
@@ -58,7 +58,7 @@ var orderDict = [
         ],
         "name": "Иван"
     ],
-    "delivery_slot_id": 5707702298738688,
+    "delivery_slot_id": "5707702298738688",
     "gifts": [
         
     ],
@@ -77,7 +77,7 @@ var orderDict = [
             "group_modifiers": [
                 
             ],
-            "item_id": 5707648880082944,
+            "item_id": "5707648880082944",
             "quantity": 2,
             "single_modifiers": [
                 

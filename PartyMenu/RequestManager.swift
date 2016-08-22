@@ -25,11 +25,9 @@ class RequestManager {
                     let rootCategory = Category.create(fromJson: jsonRootCategory)
                     rootCategory.isRoot = true
                 })
-                
                 print(rootCategories.count)
                 
                 NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-                print("end")
                 completeBlock()
         }
     }
@@ -46,8 +44,7 @@ class RequestManager {
             
             if let result = response.result.value  {
                 let json = JSON(result)
-                print("JSON: ")
-                print(json)
+                
                 let isSuccess = json["message"].stringValue == "Заказ отправлен"
                 if isSuccess {
                     dict["success"] = "true"
@@ -61,13 +58,12 @@ class RequestManager {
                 completeBlock(isSuccess, message)
             }
             else {
-                print("request error: \(response.result.error!.localizedDescription)")
+                NSLog("request error: \(response.result.error!.localizedDescription)")
                 dict["isSuccess"] = "Ошибка"
                 dict["message"] = "."
                 completeBlock(false, ".")
             }
             
-            print(dict)
             let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dict)
             ConnectionManager.shared.sendToAllData(dataToSend)
         }

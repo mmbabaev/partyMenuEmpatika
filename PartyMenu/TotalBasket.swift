@@ -12,6 +12,7 @@ import UIKit
 import SwiftyJSON
 import TSMessages
 
+// posts dataChange notification
 
 class TotalBasket {
     

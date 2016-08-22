@@ -8,6 +8,8 @@
 
 import UIKit
 
+// observer for connectedDevicesChanged
+
 class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var connectedDevicesLabel: UILabel!

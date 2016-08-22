@@ -53,7 +53,7 @@ class TotalBasketViewController: UITableViewController {
         let sums = totalBasket.baskets.map({ $0.sum })
         let totalSum = sums.reduce(0, combine: { $0 + $1 })
         
-        let alertController = UIAlertController(title: "Подтверждение заказа", message: "Общая сумма заказа: \(totalSum) ₽\n Вы уверены, что хотите сделать заказ?", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Подтверждение заказа", message: "Общая сумма заказа: \(totalSum) ₽\n Подтвердите заказ?", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Отменить", style: .Cancel, handler: nil)
         let acceptAction = UIAlertAction(title: "Заказать", style: .Default) {
             action in
@@ -87,7 +87,6 @@ class TotalBasketViewController: UITableViewController {
         cell.stepper.hidden = false
         
         if !totalBasket.isAdmin {
-            print(sections[indexPath.section])
             if sections[indexPath.section] != Constants.currentDeviceSection {
                 cell.stepper.hidden = true
             }

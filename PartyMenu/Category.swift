@@ -24,10 +24,11 @@ class Category: NSManagedObject {
     static var roots: [Category] {
         get {
             if let roots = Category.MR_findByAttribute("isRoot", withValue: true) {
-                    return roots.map({
-                        root in
-                        return root as! Category
-                    })
+                let result = roots.map({
+                    root in
+                    return root as! Category
+                })
+                return result.sort({ $0.title < $1.title })
             }
             else {
                 return [Category]()

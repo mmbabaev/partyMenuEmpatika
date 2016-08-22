@@ -43,11 +43,12 @@ class MenuViewController: UITableViewController {
         if Category.roots.isEmpty {
             RequestManager.loadJson() {
                 self.categories = Category.roots
-                self.tableView.reloadData()
+                self.updateTable()
             }
         }
         else {
             categories = Category.roots
+            updateTable()
         }
     }
     
@@ -58,6 +59,7 @@ class MenuViewController: UITableViewController {
                 let item = Item.MR_findFirstByAttribute("id", withValue: $0.id!)!
                 return item
             })
+            self.items = self.items.sort({ $0.title < $1.title })
             self.tableView.reloadData()
         }
     }
@@ -155,7 +157,7 @@ class MenuViewController: UITableViewController {
         if segue.identifier == "showMenu" {
             if let parentCategory = (sender as! CategoryTableViewCell).category {
                 let vc = segue.destinationViewController as! MenuViewController
-                vc.items = parentCategory.getItemsArr()
+                vc.items = parentCategory.getItemsArr().sort({ $0.title < $1.title })
                 vc.categories = parentCategory.getSubdirectoriesArr()
                 vc.isRoot = false
                 vc.title = parentCategory.title

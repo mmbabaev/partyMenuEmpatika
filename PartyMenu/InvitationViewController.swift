@@ -9,6 +9,8 @@
 import UIKit
 import MultipeerConnectivity
 
+// foundDevicesChanged observer 
+
 class InvitationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!

@@ -16,6 +16,8 @@ protocol ConnectionManagerDelegate {
     func lostConnection(peerName: String)
 }
 
+// posts foundDevicesChanged and connectedDevicesChanged notifications
+
 class ConnectionManager: NSObject {
     
     static let shared = ConnectionManager()

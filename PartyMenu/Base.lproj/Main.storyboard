@@ -417,7 +417,7 @@
         <scene sceneID="gSs-IW-slp">
             <objects>
                 <tableViewController id="zFL-KP-QEB" customClass="TotalBasketViewController" customModule="PartyMenu" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WAh-ie-QTI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WAh-ie-QTI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -619,7 +619,7 @@
         <scene sceneID="Eu7-p0-rlb">
             <objects>
                 <navigationController id="mvB-fy-Vaq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Настройки" id="QaG-wJ-qN7"/>
+                    <tabBarItem key="tabBarItem" title="Настройки" image="Settings-30.png" id="QaG-wJ-qN7"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lLv-VP-XLz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -635,6 +635,7 @@
     </scenes>
     <resources>
         <image name="List-30.png" width="30" height="30"/>
+        <image name="Settings-30.png" width="30" height="30"/>
         <image name="Shopping Cart-30.png" width="30" height="30"/>
         <image name="placeholder.png" width="420" height="420"/>
     </resources>

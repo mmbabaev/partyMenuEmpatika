@@ -13,7 +13,5 @@ class CurrentUserBasket: Basket {
     var owner: String = UIDevice.currentDevice().name
     var orders = [OrderItem]()
     
-    init() {
-        
-    }
+    init() {}
 }
