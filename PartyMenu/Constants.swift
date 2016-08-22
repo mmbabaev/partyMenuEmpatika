@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import TSMessages
 
 struct NotificationNames {
     static let connectedDevicesChanged = "connectedDevicesChanges"

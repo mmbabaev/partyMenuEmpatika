@@ -34,7 +34,7 @@ class RequestManager {
         }
     }
     
-    static func makeOrder(jsonOrder: String, completeBlock: (Bool) -> Void) {
+    static func makeOrder(jsonOrder: String, completeBlock: (Bool, String) -> Void) {
         let params = [
             "order" : jsonOrder
         ]
@@ -42,15 +42,34 @@ class RequestManager {
         
         Alamofire.request(.POST, makeOrderUrl, parameters: params).responseJSON {
             response in
-            if response.result.value != nil {
-                let message = String(data: response.data!, encoding: NSUTF8StringEncoding)
-                print(message?.unicodeDeparse)
-                completeBlock(true)
+            var dict = ["type" : "order"]
+            
+            if let result = response.result.value  {
+                let json = JSON(result)
+                print("JSON: ")
+                print(json)
+                let isSuccess = json["message"].stringValue == "Заказ отправлен"
+                if isSuccess {
+                    dict["success"] = "true"
+                }
+                else {
+                    dict["success"] = "false"
+                }
+                
+                let message = json["description"].stringValue
+                dict["message"] = message
+                completeBlock(isSuccess, message)
             }
             else {
                 print("request error: \(response.result.error!.localizedDescription)")
+                dict["isSuccess"] = "Ошибка"
+                dict["message"] = "."
+                completeBlock(false, ".")
             }
             
+            print(dict)
+            let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dict)
+            ConnectionManager.shared.sendToAllData(dataToSend)
         }
     }
 }

@@ -9,8 +9,10 @@
 import UIKit
 import MagicalRecord
 import SwiftyJSON
+import AlamofireImage
+import Alamofire
 
-class Sections {
+struct Sections {
     static let items = 0
     static let categories = 1
 }
@@ -79,6 +81,16 @@ class MenuViewController: UITableViewController {
             cell.stepper.value = Double(count)
             cell.count.text = String(count)
             
+            if let url = item.imageUrl  {
+                if url != "" {
+                    Alamofire.request(.GET, url).responseImage {
+                        response in
+                        cell.picture?.contentMode = .ScaleAspectFill
+                        cell.picture?.image = response.result.value
+                    }
+                }
+            }
+
             return cell
         }
         else {
@@ -88,10 +100,22 @@ class MenuViewController: UITableViewController {
             cell.title.text = category.title
             cell.category = category
             cell.title.adjustsFontSizeToFitWidth = true
+            
+            if let url = category.imageUrl {
+                if url != "" {
+                    Alamofire.request(.GET, url).responseImage {
+                        response in
+                        cell.picture?.contentMode = .ScaleAspectFill
+                        cell.picture?.image = response.result.value
+                    }
+                }
+            }
+            
             return cell
         }
     }
     
+   
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
@@ -132,7 +156,6 @@ class MenuViewController: UITableViewController {
             if let parentCategory = (sender as! CategoryTableViewCell).category {
                 let vc = segue.destinationViewController as! MenuViewController
                 vc.items = parentCategory.getItemsArr()
-                print("items count: \(vc.items)")
                 vc.categories = parentCategory.getSubdirectoriesArr()
                 vc.isRoot = false
                 vc.title = parentCategory.title

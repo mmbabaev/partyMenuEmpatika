@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AlamofireImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>HexColors.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -20,11 +25,6 @@
 			<false/>
 		</dict>
 		<key>Pods-PartyMenu.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,22 +42,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>29DFC2AFD3757F29C7835E153B7DD423</key>
+		<key>05094CC4A047119F7ADC14EE74C4881C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6B0C5039549FF2EA92650B233FF21A8D</key>
+		<key>1A8D68A6B37E696D01BB5E58E0F9B3E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>431C5A730ECF402E877914F77524590E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>94732821C20C31DEDC85C68F8FF5EF42</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +72,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA50D83B0C6FB0DC1A5EC82859BA3D41</key>
+		<key>EDB0C2034F2C1604BF19FAD1FE09095F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

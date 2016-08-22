@@ -17,6 +17,10 @@ protocol Basket {
 
 extension Basket {
     
+    var sumString: String {
+        return String(format: "%g  ₽", sum)
+    }
+    
     var sum: Double {
         let prices = orders.map({ $0.item.getPrice() * Double($0.count) })
         return prices.reduce(0, combine: { $0 + $1 })

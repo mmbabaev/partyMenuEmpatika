@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 import SwiftyJSON
+import TSMessages
 
 
 class TotalBasket {
@@ -74,6 +75,7 @@ class TotalBasket {
         let count = Int(dictionary["count"]!)!
         let owner = dictionary["owner"]!
         
+        
         let item = Item.MR_findFirstByAttribute("id", withValue: itemId)!
         
         if owner == UIDevice.currentDevice().name {
@@ -106,8 +108,6 @@ class TotalBasket {
                 
                 for order in ownerBasket.orders {
                     if order.item.id == itemId {
-                        print("item id : \(order)")
-                        print("item title : \(item.title)")
                         order.count = count
                         break
                     }
@@ -132,8 +132,6 @@ class TotalBasket {
     func orderChanged(order: OrderItem) {
         let dict = order.getOrderInfo()
         
-        print("order changed dict: ")
-        print(dict)
         let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dict)
         receivedData(dict)
         
@@ -196,12 +194,32 @@ class TotalBasket {
             return ""
         }
     }
+    
+    func makeOrderCompleted(isSuccess: Bool, message: String) {
+        if isSuccess {
+            TSMessage.showNotificationInViewController(rootVC, title: "Заказ отправлен", subtitle: message, type: .Success)
+            baskets = [Basket]()
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.dataChanged, object: nil)
+        }
+        else {
+            TSMessage.showNotificationInViewController(rootVC, title: "Заказ не отправлен", subtitle: message, type: .Error)
+        }
+    }
 }
 
 extension TotalBasket: ConnectionManagerDelegate {
     func receivedData(data: NSData) {
         let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String, String>
-        receivedData(dataDictionary)
+        if dataDictionary["type"] == "data" {
+            receivedData(dataDictionary)
+        }
+        else {
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                let isSuccess = dataDictionary["success"] == "true"
+                let message = dataDictionary["message"]!
+                self.makeOrderCompleted(isSuccess, message: message)
+            }
+        }
     }
     
     func acceptInvitation(peerName: String) {

@@ -49,6 +49,7 @@ class OrderItem {
     func getOrderInfo() -> [String : String] {
         var result = [String : String]()
         print("sending \(item.id!)")
+        result["type"] = "data"
         result["itemId"] = item.id!
         result["count"] = String(count)
         result["owner"] = owner

@@ -85,17 +85,17 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-PartyMenu/Alamofire.framework"
+  install_framework "Pods-PartyMenu/AlamofireImage.framework"
   install_framework "Pods-PartyMenu/HexColors.framework"
   install_framework "Pods-PartyMenu/MagicalRecord.framework"
-  install_framework "Pods-PartyMenu/SDWebImage.framework"
   install_framework "Pods-PartyMenu/SwiftyJSON.framework"
   install_framework "Pods-PartyMenu/TSMessages.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-PartyMenu/Alamofire.framework"
+  install_framework "Pods-PartyMenu/AlamofireImage.framework"
   install_framework "Pods-PartyMenu/HexColors.framework"
   install_framework "Pods-PartyMenu/MagicalRecord.framework"
-  install_framework "Pods-PartyMenu/SDWebImage.framework"
   install_framework "Pods-PartyMenu/SwiftyJSON.framework"
   install_framework "Pods-PartyMenu/TSMessages.framework"
 fi

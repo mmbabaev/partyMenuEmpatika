@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import MagicalRecord
+import Alamofire
+import AlamofireImage
 
 class ItemTableViewCell: UITableViewCell {
     
@@ -51,6 +53,20 @@ class ItemTableViewCell: UITableViewCell {
         owner.text = ""
         
         stepper.addTarget(self, action: #selector(self.orderValueChanged), forControlEvents: .ValueChanged)
+        
+        self.picture?.contentMode = .ScaleAspectFill
+        
+        if item.imageUrl != nil && item.imageUrl != ""  {
+            let url = item.imageUrl!
+            Alamofire.request(.GET, url).responseImage {
+                response in
+                    
+                self.picture?.image = response.result.value
+            }
+        }
+        else {
+            self.picture?.image = UIImage(named: "placeholder")
+        }
     }
     
     func orderValueChanged(sender: UIStepper) {

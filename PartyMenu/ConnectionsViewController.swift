@@ -33,10 +33,6 @@ class ConnectionsViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
-    @IBAction func close(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mcManager.connectedDevices.count
     }

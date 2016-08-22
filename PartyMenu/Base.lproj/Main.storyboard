@@ -43,12 +43,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Bpo-sH-v5H">
-                                            <rect key="frame" x="8" y="10" width="80" height="80"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="80" id="9xS-IB-4Um"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vwn-pr-TZd">
                                             <rect key="frame" x="96" y="8" width="203" height="24"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
@@ -89,6 +83,13 @@
                                             <color key="textColor" red="1" green="0.94662600539999997" blue="0.97700484809999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Bpo-sH-v5H">
+                                            <rect key="frame" x="8" y="10" width="80" height="80"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="9xS-IB-4Um"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="A3f-68-ceq" firstAttribute="top" secondItem="YBQ-aK-mva" secondAttribute="topMargin" constant="-3" id="0Ew-Yo-Fxl"/>
@@ -507,6 +508,7 @@
                                     <outlet property="count" destination="It5-gS-CcU" id="vJa-hN-Pze"/>
                                     <outlet property="dishDescription" destination="DK8-N5-xfZ" id="zkZ-aw-EgO"/>
                                     <outlet property="owner" destination="csv-P0-y1A" id="PEA-LO-gcl"/>
+                                    <outlet property="picture" destination="j76-nG-AlI" id="F0X-HM-3UH"/>
                                     <outlet property="price" destination="ytw-VZ-Nb8" id="P8z-K7-gCQ"/>
                                     <outlet property="stepper" destination="6Nk-Nw-aMH" id="hGH-T1-58H"/>
                                     <outlet property="title" destination="edu-Di-XWn" id="VOs-ry-clX"/>

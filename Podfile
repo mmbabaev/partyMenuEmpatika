@@ -6,9 +6,9 @@ use_frameworks!
 target 'PartyMenu' do
     pod 'Alamofire', '~> 3.4'
     pod 'SwiftyJSON'
-    pod 'SDWebImage', '~>3.8'
     pod 'MagicalRecord'
     pod 'TSMessages', :git => 'https://github.com/KrauseFx/TSMessages.git'
+    pod 'AlamofireImage', '~> 2.0'
 end
 
  

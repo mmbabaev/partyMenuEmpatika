@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8716A0371D56092700BE95BE /* List-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 8716A0361D56092700BE95BE /* List-30.png */; };
 		8716A0391D56095400BE95BE /* Shopping Cart-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 8716A0381D56095400BE95BE /* Shopping Cart-30.png */; };
-		874A36271D5698F00078425D /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874A36261D5698F00078425D /* BasketViewController.swift */; };
+		874A36271D5698F00078425D /* TotalBasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874A36261D5698F00078425D /* TotalBasketViewController.swift */; };
 		874A36291D56ABA40078425D /* Basket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874A36281D56ABA40078425D /* Basket.swift */; };
 		874A362B1D56B5BF0078425D /* ConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874A362A1D56B5BF0078425D /* ConnectionsViewController.swift */; };
 		874A362D1D5731000078425D /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874A362C1D5731000078425D /* ConnectionManager.swift */; };
@@ -43,7 +43,7 @@
 		8716A0361D56092700BE95BE /* List-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-30.png"; sourceTree = "<group>"; };
 		8716A0381D56095400BE95BE /* Shopping Cart-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shopping Cart-30.png"; sourceTree = "<group>"; };
 		874A36251D5683030078425D /* MenuModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MenuModel 3.xcdatamodel"; sourceTree = "<group>"; };
-		874A36261D5698F00078425D /* BasketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
+		874A36261D5698F00078425D /* TotalBasketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalBasketViewController.swift; sourceTree = "<group>"; };
 		874A36281D56ABA40078425D /* Basket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basket.swift; sourceTree = "<group>"; };
 		874A362A1D56B5BF0078425D /* ConnectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsViewController.swift; sourceTree = "<group>"; };
 		874A362C1D5731000078425D /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				87D579251D55FC7B00083239 /* MenuViewController.swift */,
-				874A36261D5698F00078425D /* BasketViewController.swift */,
+				874A36261D5698F00078425D /* TotalBasketViewController.swift */,
 				874A362A1D56B5BF0078425D /* ConnectionsViewController.swift */,
 				87BF22921D5E022C006A9267 /* InvitationViewController.swift */,
 			);
@@ -375,7 +375,7 @@
 				87D518151D5641A900857BEE /* CategoryTableViewCell.swift in Sources */,
 				87BF228C1D5DCAE8006A9267 /* TotalBasket.swift in Sources */,
 				874A36301D573AD70078425D /* Constants.swift in Sources */,
-				874A36271D5698F00078425D /* BasketViewController.swift in Sources */,
+				874A36271D5698F00078425D /* TotalBasketViewController.swift in Sources */,
 				87D5180B1D56106600857BEE /* OrderItem.swift in Sources */,
 				87D579241D55FC7B00083239 /* AppDelegate.swift in Sources */,
 				874A362D1D5731000078425D /* ConnectionManager.swift in Sources */,
